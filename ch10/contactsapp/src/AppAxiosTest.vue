@@ -35,7 +35,6 @@
 
 <script>
 /* eslint-disable no-console */
-import axios from "axios"
 export default {
   name: "app",
   data() {
@@ -43,7 +42,7 @@ export default {
   },
   methods: {
     fetchContacts: function() {
-      axios
+      this.$axios
         .get("api/contacts", {
           params: { pageno: 1, pagesize: 5 }
         })
@@ -56,7 +55,7 @@ export default {
         })
     },
     addContact: function() {
-      axios
+      this.$axios
         .post("api/contacts", {
           name: this.name,
           tel: this.tel,
@@ -72,13 +71,13 @@ export default {
         })
     },
     fetchContactOne: function() {
-      axios.get("api/contacts/" + this.no).then(response => {
+      this.$axios.get("api/contacts/" + this.no).then(response => {
         console.log(response)
         this.result = response.data
       })
     },
     updateContact: function() {
-      axios
+      this.$axios
         .put("api/contacts/" + this.no, {
           name: this.name,
           tel: this.tel,
@@ -96,7 +95,7 @@ export default {
         })
     },
     deleteContact: function() {
-      axios
+      this.$axios
         .delete("api/contacts/" + this.no)
         .then(response => {
           console.log(response)
@@ -112,7 +111,7 @@ export default {
       var file = this.$refs.photofile.files[0]
       data.append("photo", file)
 
-      axios
+      this.$axios
         .post("api/contacts/" + this.no + "/photo", data)
         .then(response => {
           this.result = response.data
